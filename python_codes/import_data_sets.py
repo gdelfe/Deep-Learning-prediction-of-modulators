@@ -6,6 +6,33 @@ import os
 import pdb
 # pdb.set_trace()
 
+
+
+def load_data(Sess,Ch,x_size,y_size,train_s,test_s):
+
+    path = os.getcwd()
+    print(path)
+    
+    path_dir = '/home/bijanadmin/Dropbox/DL-modulators'
+    pathHit = os.path.join(path_dir,'CODES')
+    filename = os.path.join(pathHit,'python_codes/test_file.txt')
+    
+    dat = np.loadtxt(filename)
+    print(dat)
+    
+    
+    
+    
+    print('loading data')
+    pdb.set_trace()
+    os.chdir('../../')
+
+    
+    return
+
+
+
+
 def load_data_homogeneous_complex(Sess,Ch,x_size,y_size):
         
     # name directory
@@ -180,28 +207,28 @@ def load_data_random_complex(Sess,Ch,x_size,y_size,R):
 
 def load_data_homogeneous(Sess,Ch,x_size,y_size,train_s,test_s):
         
-    pass
-    # tensor_hit_train = np.empty((1,x_size,y_size), dtype='f')
-    # tensor_hit_test = np.empty((1,x_size,y_size), dtype='f')
-    # tensor_miss_train = np.empty((1,x_size,y_size), dtype='f')
-    # tensor_miss_test = np.empty((1,x_size,y_size), dtype='f')
+
+    tensor_hit_train = np.empty((1,x_size,y_size), dtype='f')
+    tensor_hit_test = np.empty((1,x_size,y_size), dtype='f')
+    tensor_miss_train = np.empty((1,x_size,y_size), dtype='f')
+    tensor_miss_test = np.empty((1,x_size,y_size), dtype='f')
     
     # pdb.set_trace()
    
 ###################
 #### HITS #########
 ###################
- 
-#     # pathHit = 'Ryan_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/all_pulses_N_15_W_25_dn_018'.format(Sess,Ch)
-#     pathHit = './Shaoyu_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/1_Subject_{}_Sess_{}_Ch'.format(Sess,Ch,Sess,Ch)
-#     print(pathHit)
+    main_path = '/home/bijanadmin/Dropbox/DL-modulators/DATA/'
+    pathHit = os.path.join(main_path,'Ryan_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/all_pulses_N_15_W_25_dn_018'.format(Sess,Ch))
+    # pathHit = os.path.join(main_path,Shaoyu_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/1_Subject_{}_Sess_{}_Ch'.format(Sess,Ch,Sess,Ch)
+    print(pathHit)
     
     
-#     # name files
-#     fnHitLabels = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_Hits_index.txt".format(Sess,Ch)) # name file with labels index
+    # # name files
+    fnHitLabels = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_Hits_index.txt".format(Sess,Ch)) # name file with labels index
 
 
-#     labelsHit = np.loadtxt(fnHitLabels,dtype='l',delimiter='\t') # load labels vector
+    labelsHit = np.loadtxt(fnHitLabels,dtype='l',delimiter='\t') # load labels vector
 #     # labelsHit = np.ones(43)
     
 #     train_size = (np.floor(len(labelsHit)*train_s)).astype(int) # length trainig set

@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+import sys
+sys.modules[__name__].__dict__.clear()
+
+#%%
 import numpy as np
 import torch
 from torch import nn, optim
@@ -18,7 +22,7 @@ import ANN_Models as ANN
 # ## DATA 
 
 # PATH DIRECTORY 
-Sess = 15
+Sess = 1
 Ch = 41
 # maxCh = 20
 # format image (resolution):
@@ -34,7 +38,9 @@ brain_area = 'OFC'
 # tensor_hit_train, tensor_hit_test, tensor_miss_train, tensor_miss_test = data.load_data_NW(Sess,Ch,x_size,y_size,train_s,test_s)
 # tensor_hit_train, tensor_hit_test, tensor_miss_train, tensor_miss_test = data.load_data_area(Sess,brain_area, x_size, y_size, train_s, test_s)
 # tensor_hit_trainA, tensor_hit_testA, tensor_miss_trainA, tensor_miss_testA = data.load_data_random_NW(Sess,Ch,x_size,y_size,train_s,test_s,rand_max)
-tensor_hit_trainA, tensor_hit_testA, tensor_miss_trainA, tensor_miss_testA = data.load_data_homogeneous(Sess,Ch,x_size,y_size,train_s,test_s)
+# data.load_data_homogeneous(Sess,Ch,x_size,y_size,train_s,test_s)
+
+data.load_data(Sess,Ch,x_size,y_size,train_s,test_s)
 #%%
 print(tensor_hit_trainA.shape)
 print(tensor_hit_testA.shape)
