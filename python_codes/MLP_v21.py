@@ -22,12 +22,12 @@ import ANN_Models as ANN
 # ## DATA 
 
 # PATH DIRECTORY 
-Sess = 1
-Ch = 41
+Sess = 15
+Ch = 34
 # maxCh = 20
 # format image (resolution):
-x_size = 100
-y_size = 60
+x_size = 46
+y_size = 30
 
 train_s = 0.75
 test_s = 1 - train_s
@@ -40,35 +40,36 @@ brain_area = 'OFC'
 # tensor_hit_trainA, tensor_hit_testA, tensor_miss_trainA, tensor_miss_testA = data.load_data_random_NW(Sess,Ch,x_size,y_size,train_s,test_s,rand_max)
 # data.load_data_homogeneous(Sess,Ch,x_size,y_size,train_s,test_s)
 
-data.load_data(Sess,Ch,x_size,y_size,train_s,test_s)
+tensor_hit_train_tmp, tensor_hit_test_tmp, tensor_miss_train_tmp, tensor_miss_test_tmp = data.load_data_random_NW(Sess,Ch,x_size,y_size,train_s,test_s,rand_max)
+
 #%%
-print(tensor_hit_trainA.shape)
-print(tensor_hit_testA.shape)
-print(tensor_miss_trainA.shape)
-print(tensor_miss_testA.shape)
+print(tensor_hit_train_tmp.shape)
+print(tensor_hit_test_tmp.shape)
+print(tensor_miss_train_tmp.shape)
+print(tensor_miss_test_tmp.shape)
 
 #%%
 # ### Balance the data set
-tensor_miss_trainA = tensor_miss_trainA[1:]
-tensor_miss_test = tensor_miss_testA[1:]
+tensor_miss_train_tmp = tensor_miss_train_tmp[1:]
+tensor_miss_test_tmp = tensor_miss_test_tmp[1:]
 
-tensor_hit_trainA = tensor_hit_trainA[1:]
-tensor_hit_testA = tensor_hit_testA[1:]
+tensor_hit_train_tmp = tensor_hit_train_tmp[1:]
+tensor_hit_test_tmp = tensor_hit_test_tmp[1:]
 
 # tensor_hit_train = tensor_hit_train[1:tensor_miss_train.shape[0]+1]
 # tensor_hit_test = tensor_hit_test[1:tensor_miss_test.shape[0]+1]
 
 
 print('Data set size after balancing')
-print(tensor_hit_trainA.shape)
-print(tensor_hit_testA.shape)
-print(tensor_miss_trainA.shape)
-print(tensor_miss_testA.shape)
+print(tensor_hit_train_tmp.shape)
+print(tensor_hit_test_tmp.shape)
+print(tensor_miss_train_tmp.shape)
+print(tensor_miss_test_tmp.shape)
 
 #%%
-plt.imshow(tensor_hit_trainA[10].transpose(),origin='lower')
+plt.imshow(tensor_hit_train_tmp[10].transpose(),origin='lower')
 plt.show()
-plt.imshow(tensor_hit_trainA[0,:,5:15].transpose(),origin='lower')
+plt.imshow(tensor_hit_train_tmp[0,:,5:15].transpose(),origin='lower')
 plt.show()
 
 
@@ -77,11 +78,11 @@ fmin = 0
 fmax = 30
 
 #%%
-tensor_miss_train = tensor_miss_trainA[:,:,fmin:fmax]
-tensor_miss_test = tensor_miss_testA[:,:,fmin:fmax]
+tensor_miss_train = tensor_miss_train_tmp[:,:,fmin:fmax]
+tensor_miss_test = tensor_miss_test_tmp[:,:,fmin:fmax]
 
-tensor_hit_train = tensor_hit_trainA[:,:,fmin:fmax]
-tensor_hit_test = tensor_hit_testA[:,:,fmin:fmax]
+tensor_hit_train = tensor_hit_train_tmp[:,:,fmin:fmax]
+tensor_hit_test = tensor_hit_test_tmp[:,:,fmin:fmax]
 
 print(tensor_hit_train.shape)
 print(tensor_hit_test.shape)
@@ -223,7 +224,7 @@ images.shape[1]
 #%%
 # ### Linear regression
 
-model = ANN.Linear_Regression(tensor_hit_train.shape[1],tensor_hit_train.shape[2])
+model = ANN.Linear_Regression(tensor_hit_train.shape[1],tensor_hit_train.shape[2],1)
 print(model)
 
 
@@ -328,7 +329,7 @@ print(model)
 
 model.train() # set the network in training mode
 
-epochs = 110
+epochs = 10
 train_losses, test_losses, acc_list = [], [], []
 
 for epoch in range(1,epochs+1):

@@ -100,7 +100,7 @@ class MLP_deep(nn.Module):
 # ### Linear regression
 
 
-class Linear_Regression(nn.Module):
+class Logistic_Regression(nn.Module):
     def __init__(self,x,y,dim):
         super().__init__()
         
@@ -308,7 +308,7 @@ class CNN_small(nn.Module):
         
         # pdb.set_trace()
 
-        x = x.view(x.shape[0],2,x.shape[1],x.shape[2]) # images is expanded to host the channel (1 in this case, 3 when RGB) dimension for the CNN
+        x = x.view(x.shape[0],1,x.shape[1],x.shape[2]) # images is expanded to host the channel (1 in this case, 3 when RGB) dimension for the CNN
 
         #########################
         # CONVOLUTIONAL LAYERS ##

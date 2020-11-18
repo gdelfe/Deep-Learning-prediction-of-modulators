@@ -205,31 +205,32 @@ def load_data_random_complex(Sess,Ch,x_size,y_size,R):
 
 
 
-def load_data_homogeneous(Sess,Ch,x_size,y_size,train_s,test_s):
+# def load_data_homogeneous(Sess,Ch,x_size,y_size,train_s,test_s):
         
 
-    tensor_hit_train = np.empty((1,x_size,y_size), dtype='f')
-    tensor_hit_test = np.empty((1,x_size,y_size), dtype='f')
-    tensor_miss_train = np.empty((1,x_size,y_size), dtype='f')
-    tensor_miss_test = np.empty((1,x_size,y_size), dtype='f')
+#     tensor_hit_train = np.empty((1,x_size,y_size), dtype='f')
+#     tensor_hit_test = np.empty((1,x_size,y_size), dtype='f')
+#     tensor_miss_train = np.empty((1,x_size,y_size), dtype='f')
+#     tensor_miss_test = np.empty((1,x_size,y_size), dtype='f')
     
-    # pdb.set_trace()
+#     # pdb.set_trace()
    
-###################
-#### HITS #########
-###################
-    main_path = '/home/bijanadmin/Dropbox/DL-modulators/DATA/'
-    pathHit = os.path.join(main_path,'Ryan_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/all_pulses_N_15_W_25_dn_018'.format(Sess,Ch))
-    # pathHit = os.path.join(main_path,Shaoyu_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/1_Subject_{}_Sess_{}_Ch'.format(Sess,Ch,Sess,Ch)
-    print(pathHit)
+# ###################
+# #### HITS #########
+# ###################
+
+#     main_path = '/home/bijanadmin/Dropbox/DL-modulators/DATA/'
+#     pathHit = os.path.join(main_path,'Ryan_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/all_pulses_N_15_W_25_k_2_dn_018'.format(Sess,Ch))
+#     # pathHit = os.path.join(main_path,Shaoyu_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/1_Subject_{}_Sess_{}_Ch'.format(Sess,Ch,Sess,Ch)
+#     print(pathHit)
     
     
-    # # name files
-    fnHitLabels = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_Hits_index.txt".format(Sess,Ch)) # name file with labels index
+#     # # name files
+#     fnHitLabels = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_Hits_index.txt".format(Sess,Ch)) # name file with labels index
 
 
-    labelsHit = np.loadtxt(fnHitLabels,dtype='l',delimiter='\t') # load labels vector
-#     # labelsHit = np.ones(43)
+#     labelsHit = np.loadtxt(fnHitLabels,dtype='l',delimiter='\t') # load labels vector
+# #     # labelsHit = np.ones(43)
     
 #     train_size = (np.floor(len(labelsHit)*train_s)).astype(int) # length trainig set
 #     test_size = len(labelsHit) - train_size  # length test set
@@ -311,7 +312,8 @@ def load_data_homogeneous(Sess,Ch,x_size,y_size,train_s,test_s):
 
 def load_data_NW(Sess,Ch,x_size,y_size,train_s,test_s):
         
-    
+    main_path = '/home/bijanadmin/Dropbox/DL-modulators/DATA/'
+      
     tensor_hit_train = np.empty((1,x_size,y_size), dtype='f')
     tensor_hit_test = np.empty((1,x_size,y_size), dtype='f')
     tensor_miss_train = np.empty((1,x_size,y_size), dtype='f')
@@ -325,7 +327,7 @@ def load_data_NW(Sess,Ch,x_size,y_size,train_s,test_s):
     # 1st CHANNEL LOADED #
     ######################
     # name directory
-    pathHit = 'Data/Hits/1_Subject/{}_Sess/{}_Ch/homogeneous/N_025_W_6_k_2'.format(Sess,Ch)
+    pathHit = os.path.join(main_path,'Ryan_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/first_pulse_N_15_W_25_k_2_dn_018'.format(Sess,Ch))
     # pathHit = 'Data/Hits/1_Subject/{}_Sess/{}_Ch/1_Subject_{}_Sess_{}_Ch'.format(Sess,Ch,Sess,Ch)
 
     # print(pathHit)
@@ -343,15 +345,7 @@ def load_data_NW(Sess,Ch,x_size,y_size,train_s,test_s):
     # load all other hit-files into a matrix, concatenate it
     for indx in range(1,train_size+1):
         
-        pathHit = 'Data/Hits/1_Subject/{}_Sess/{}_Ch/homogeneous/N_025_W_6_k_2'.format(Sess,Ch)
-        fnHit = os.path.join(pathHit,"1_Subject_15_Sess_{}_Ch_{}_hit.txt".format(Ch,indx)) # name file hit (following one)
-        print(fnHit)
-        newmat_hit = np.loadtxt(fnHit,dtype='f',delimiter='\t') # load hit matrix
-        newmat_hit = newmat_hit.reshape(1,x_size,y_size) # reshape 
-        tensor_hit_train = np.concatenate((tensor_hit_train,newmat_hit),axis=0) # stack matrix along the 1st dimension 
-            
-        pathHit = 'Data/Hits/1_Subject/{}_Sess/{}_Ch/homogeneous/N_021_W_7_k_2_dn_002'.format(Sess,Ch)
-        fnHit = os.path.join(pathHit,"1_Subject_15_Sess_{}_Ch_{}_hit.txt".format(Ch,indx)) # name file hit (following one)
+        fnHit = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_{}_hit.txt".format(Sess,Ch,indx)) # name file hit (following one)
         print(fnHit)
         newmat_hit = np.loadtxt(fnHit,dtype='f',delimiter='\t') # load hit matrix
         newmat_hit = newmat_hit.reshape(1,x_size,y_size) # reshape 
@@ -364,21 +358,12 @@ def load_data_NW(Sess,Ch,x_size,y_size,train_s,test_s):
     # load all other hit-files into a matrix, concatenate it
     for indx in range(train_size+2,len(labelsHit)+1):
         
-        pathHit = 'Data/Hits/1_Subject/{}_Sess/{}_Ch/homogeneous/N_025_W_6_k_2'.format(Sess,Ch)
-        fnHit = os.path.join(pathHit,"1_Subject_15_Sess_{}_Ch_{}_hit.txt".format(Ch,indx)) # name file hit (following one)
+        fnHit = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_{}_hit.txt".format(Sess,Ch,indx)) # name file hit (following one)
         print(fnHit)
         newmat_hit = np.loadtxt(fnHit,dtype='f',delimiter='\t') # load hit matrix
         newmat_hit = newmat_hit.reshape(1,x_size,y_size) # reshape 
         tensor_hit_test = np.concatenate((tensor_hit_test,newmat_hit),axis=0) # stack matrix along the 1st dimension 
         
-        pathHit = 'Data/Hits/1_Subject/{}_Sess/{}_Ch/homogeneous/N_021_W_7_k_2_dn_002'.format(Sess,Ch)
-        fnHit = os.path.join(pathHit,"1_Subject_15_Sess_{}_Ch_{}_hit.txt".format(Ch,indx)) # name file hit (following one)
-        print(fnHit)
-        newmat_hit = np.loadtxt(fnHit,dtype='f',delimiter='\t') # load hit matrix
-        newmat_hit = newmat_hit.reshape(1,x_size,y_size) # reshape 
-        tensor_hit_test = np.concatenate((tensor_hit_test,newmat_hit),axis=0) # stack matrix along the 1st dimension 
-    
-    
         
 ###################
 #### MISSES #######
@@ -387,9 +372,8 @@ def load_data_NW(Sess,Ch,x_size,y_size,train_s,test_s):
     ######################
     # 1st CHANNEL LOADED #
     ######################
-        # name directory
-    pathMiss = 'Data/Misses/1_Subject/{}_Sess/{}_Ch/homogeneous/N_025_W_6_k_2'.format(Sess,Ch)
-    # pathMiss = 'Data/Misses/1_Subject/{}_Sess/{}_Ch/1_Subject_{}_Sess_{}_Ch'.format(Sess,Ch,Sess,Ch)
+     # name directory
+    pathMiss = os.path.join(main_path,'Ryan_data/Data/Misses/1_Subject/{}_Sess/{}_Ch/first_pulse_N_15_W_25_k_2_dn_018'.format(Sess,Ch))
 
     # print(pathMiss)
     
@@ -584,7 +568,9 @@ def load_data_area(Sess,area,x_size,y_size,train_s,test_s):
 
 def load_data_random_NW(Sess,Ch,x_size,y_size,train_s,test_s,rand_max):
    
-    pdb.set_trace()
+    # pdb.set_trace()
+    
+    main_path = '/home/bijanadmin/Dropbox/DL-modulators/DATA/'
     
     tensor_hit_train = np.empty((1,x_size,y_size), dtype='f')
     tensor_hit_test = np.empty((1,x_size,y_size), dtype='f')
@@ -592,120 +578,104 @@ def load_data_random_NW(Sess,Ch,x_size,y_size,train_s,test_s,rand_max):
     tensor_miss_test = np.empty((1,x_size,y_size), dtype='f')
    
     
-###################   
-#### HITS #########
-###################   
+    for R in range(1,rand_max+1):
     
-#     for R in range(0,rand_max+1):
-    
-#         print('Random: ',R) # print current channel
+        print('Random: ',R) # print current channel
         
         
 # ###################
 # #### HITS #########
 # ###################
         
-#         print('LOADING HIT TRIAL...')
-#         pdb.set_trace()
-#         # name directory
-#         # pathHit = 'Data/Hits/1_Subject/{}_Sess/{}_Ch/random_different_weights/random_{}'.format(Sess,Ch,R)
-#         pathHit = '~/Dropbox/DL-modulators/Ryan_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/random_N_015_W_25_dn_018/random_{}'.format(Sess,Ch,R)
-#         # pathHit = 'Data/Hits/1_Subject/{}_Sess/{}_Ch/random_NW/random_{}'.format(Sess,Ch,R)
-#         print(pathHit)
+        print('LOADING HIT TRIAL...')
+        
+        # name directory
+        pathHit = os.path.join(main_path,'Shaoyu_data/Data/Hits/1_Subject/{}_Sess/{}_Ch/random_N_025_W_6_dn_0167/random_{}'.format(Sess,Ch,R))
+        print(pathHit)
     
-#         # name files labels
-#         fnHitLabels = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_Hits_index.txt".format(Sess,Ch)) # name file with labels index
-#         print(fnHitLabels)
-#         pdb.set_trace()
-#         cwd = os.getcwd()
-#         print('path is:  ', cwd)
-#         labelsHit = np.loadtxt(fnHitLabels,dtype='l',delimiter='\t') # load labels vector
-#         # labelsHit = np.ones(43)
+        # name files labels
+        fnHitLabels = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_Hits_index.txt".format(Sess,Ch)) # name file with labels index
+        labelsHit = np.loadtxt(fnHitLabels,dtype='l',delimiter='\t') # load labels vector
+        # labelsHit = np.ones(43)
         
-        # train_size = (np.floor(len(labelsHit)*train_s)).astype(int) # length trainig set
-        # test_size = len(labelsHit) - train_size  # length test set
+        train_size = (np.floor(len(labelsHit)*train_s)).astype(int) # length trainig set
+        test_size = len(labelsHit) - train_size  # length test set
         
-#         ############# TRAIN ###############  
+        ############# TRAIN ###############  
             
-#         #     #plt.imshow(np.flipud(tensor_hit.transpose()))
-#         # load all other hit-files into a matrix, concatenate it
-#         print('Loading hit TRAIN...')
-#         for indx in range(1,train_size+1):
+        # load all other hit-files into a matrix, concatenate it
+        print('Loading hit TRAIN...')
+        for indx in range(1,train_size+1):
             
-#             fnHit = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_{}_hit.txt".format(Sess,Ch,indx)) # name file hit (following one)
-#             print(fnHit)
-#             newmat_hit = np.loadtxt(fnHit,dtype='f',delimiter='\t') # load hit matrix
-#             newmat_hit = newmat_hit.reshape(1,x_size,y_size) # reshape 
-#             tensor_hit_train = np.concatenate((tensor_hit_train,newmat_hit),axis=0) # stack matrix along the 1st dimension 
+            fnHit = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_{}_hit.txt".format(Sess,Ch,indx)) # name file hit (following one)
+            print(fnHit)
+            newmat_hit = np.loadtxt(fnHit,dtype='f',delimiter='\t') # load hit matrix            
+            newmat_hit = newmat_hit.reshape(1,x_size,y_size) # reshape 
+            tensor_hit_train = np.concatenate((tensor_hit_train,newmat_hit),axis=0) # stack matrix along the 1st dimension 
                  
         
-#         ############# TEST ######################        
-#         print('Loading hit TEST...')
-#         #     #plt.imshow(np.flipud(tensor_hit.transpose()))
-#         # load all other hit-files into a matrix, concatenate it
-#         for indx in range(train_size+1,len(labelsHit)+1):
-            
-#             fnHit = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_{}_hit.txt".format(Sess,Ch,indx)) # name file hit (following one)
-#             print(fnHit)
-#             newmat_hit = np.loadtxt(fnHit,dtype='f',delimiter='\t') # load hit matrix
-#             newmat_hit = newmat_hit.reshape(1,x_size,y_size) # reshape 
-#             tensor_hit_test = np.concatenate((tensor_hit_test,newmat_hit),axis=0) # stack matrix along the 1st dimension 
-            
-            
-        
-# ###################
-# #### MISSES #######
-# ###################
-    
-#         print('LOADING MISS TRIAL...')
-    
-    
-#         # name directory
-#         # pathMiss = 'Data/Misses/1_Subject/{}_Sess/{}_Ch/random_different_weights/random_{}'.format(Sess,Ch,R)
-#         pathMiss = 'Ryan_data/Data/Misses/1_Subject/{}_Sess/{}_Ch/random_N_015_W_25_dn_018/random_{}'.format(Sess,Ch,R)
+        ############# TEST ######################        
+        print('Loading hit TEST...')
 
-#         # pathMiss = 'Data/Misses/1_Subject/{}_Sess/{}_Ch/random_NW/random_{}'.format(Sess,Ch,R)
-
-#         # pathMiss = 'Data/Misses/1_Subject/{}_Sess/{}_Ch/1_Subject_{}_Sess_{}_Ch'.format(Sess,Ch,Sess,Ch)
-        
-#         # name files labels
-#         fnMissLabels = os.path.join(pathMiss,"1_Subject_{}_Sess_{}_Ch_Misses_index.txt".format(Sess,Ch)) # name file with labels index
-#         labelsMiss = np.loadtxt(fnMissLabels,dtype='l',delimiter='\t') # load labels vector
-        
-#         train_size = (np.floor(len(labelsMiss)*train_s)).astype(int) # length trainig set
-#         test_size = len(labelsMiss) - train_size  # length test set
-        
-#         ############# TRAIN ###############
-        
-#         print('Loading miss TRAIN...')
-#         # load all miss-files into a matrix, concatenate it
-#         for indx in range(1,train_size+1):
+        # load all other hit-files into a matrix, concatenate it
+        for indx in range(train_size+1,len(labelsHit)+1):
             
-#             fnMiss = os.path.join(pathMiss,"1_Subject_{}_Sess_{}_Ch_{}_miss.txt".format(Sess,Ch,indx)) # name file miss (following one)
-#             print(fnMiss)
-#             newmat_miss = np.loadtxt(fnMiss,dtype='f',delimiter='\t') # load miss matrix
-#             newmat_miss = newmat_miss.reshape(1,x_size,y_size) # reshape the tensor leaving dim = 0 for batches
-#             tensor_miss_train = np.concatenate((tensor_miss_train,newmat_miss),axis=0) # stack matrix along the 1st dimension 
+            fnHit = os.path.join(pathHit,"1_Subject_{}_Sess_{}_Ch_{}_hit.txt".format(Sess,Ch,indx)) # name file hit (following one)
+            print(fnHit)
+            newmat_hit = np.loadtxt(fnHit,dtype='f',delimiter='\t') # load hit matrix
+            newmat_hit = newmat_hit.reshape(1,x_size,y_size) # reshape 
+            tensor_hit_test = np.concatenate((tensor_hit_test,newmat_hit),axis=0) # stack matrix along the 1st dimension 
+            
+            
+        
+###################
+#### MISSES #######
+###################
+    
+        print('LOADING MISS TRIAL...')
+    
+    
+        # name directory
+        pathMiss = os.path.join(main_path,'Shaoyu_data/Data/Misses/1_Subject/{}_Sess/{}_Ch/random_N_025_W_6_dn_0167/random_{}'.format(Sess,Ch,R))
+       
+        # name files labels
+        fnMissLabels = os.path.join(pathMiss,"1_Subject_{}_Sess_{}_Ch_Misses_index.txt".format(Sess,Ch)) # name file with labels index
+        labelsMiss = np.loadtxt(fnMissLabels,dtype='l',delimiter='\t') # load labels vector
+        
+        train_size = (np.floor(len(labelsMiss)*train_s)).astype(int) # length trainig set
+        test_size = len(labelsMiss) - train_size  # length test set
+        
+        ############# TRAIN ###############
+        
+        print('Loading miss TRAIN...')
+        # load all miss-files into a matrix, concatenate it
+        for indx in range(1,train_size+1):
+            
+            fnMiss = os.path.join(pathMiss,"1_Subject_{}_Sess_{}_Ch_{}_miss.txt".format(Sess,Ch,indx)) # name file miss (following one)
+            print(fnMiss)
+            newmat_miss = np.loadtxt(fnMiss,dtype='f',delimiter='\t') # load miss matrix
+            newmat_miss = newmat_miss.reshape(1,x_size,y_size) # reshape the tensor leaving dim = 0 for batches
+            tensor_miss_train = np.concatenate((tensor_miss_train,newmat_miss),axis=0) # stack matrix along the 1st dimension 
             
     
-#         ############# TEST ######################     
-#         print('Loading miss TEST...')
-#         # load all  miss-files into a matrix, concatenate it
-#         for indx in range(train_size+1,len(labelsMiss)+1):
+        ############# TEST ######################     
+        print('Loading miss TEST...')
+        # load all  miss-files into a matrix, concatenate it
+        for indx in range(train_size+1,len(labelsMiss)+1):
             
-#             fnMiss = os.path.join(pathMiss,"1_Subject_{}_Sess_{}_Ch_{}_miss.txt".format(Sess,Ch,indx)) # name file miss (following one)
-#             print(fnMiss)
-#             newmat_miss = np.loadtxt(fnMiss,dtype='f',delimiter='\t') # load miss matrix
-#             newmat_miss = newmat_miss.reshape(1,x_size,y_size) # reshape the tensor leaving dim = 0 for batches
-#             tensor_miss_test = np.concatenate((tensor_miss_test,newmat_miss),axis=0) # stack matrix along the 1st dimension 
+            fnMiss = os.path.join(pathMiss,"1_Subject_{}_Sess_{}_Ch_{}_miss.txt".format(Sess,Ch,indx)) # name file miss (following one)
+            print(fnMiss)
+            newmat_miss = np.loadtxt(fnMiss,dtype='f',delimiter='\t') # load miss matrix
+            newmat_miss = newmat_miss.reshape(1,x_size,y_size) # reshape the tensor leaving dim = 0 for batches
+            tensor_miss_test = np.concatenate((tensor_miss_test,newmat_miss),axis=0) # stack matrix along the 1st dimension 
     
             
 
    
-#     print(tensor_hit_train.shape)
-#     print(tensor_hit_test.shape)
-#     print(tensor_miss_train.shape)
-#     print(tensor_miss_test.shape)
+    print(tensor_hit_train.shape)
+    print(tensor_hit_test.shape)
+    print(tensor_miss_train.shape)
+    print(tensor_miss_test.shape)
     
     return(tensor_hit_train, tensor_hit_test, tensor_miss_train, tensor_miss_test)   
 
