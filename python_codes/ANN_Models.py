@@ -272,8 +272,8 @@ class CNN_small(nn.Module):
         # convolutional layers
         # ^^^^^^^^^^^^^^^^^^^^
     
-        # convolutional layer (sees 48x30x1 image tensor)
-        self.conv1 = nn.Conv2d(2,4,3,padding=1)
+        # convolutional layer (sees 46x30x1 image tensor)
+        self.conv1 = nn.Conv2d(1,4,3,padding=1)
         # convolutional layer (sees 24x16x4 tensor)
         self.conv2 = nn.Conv2d(4,8,3,padding=1)
         
@@ -306,7 +306,6 @@ class CNN_small(nn.Module):
             
     def forward(self,x):
         
-        # pdb.set_trace()
 
         x = x.view(x.shape[0],1,x.shape[1],x.shape[2]) # images is expanded to host the channel (1 in this case, 3 when RGB) dimension for the CNN
 
@@ -317,7 +316,7 @@ class CNN_small(nn.Module):
         # Convolution 1:
         # print('x shape before conv 1: ',x.shape)
         # pdb.set_trace()
-        x = self.pad_B(x) # padding right one step  -- comment out for 46x20 images
+        # x = self.pad_B(x) # padding right one step  -- comment out for 46x20 images
         # x = x [:,:,1:,:] 
         
         # print('x shape conv 1,, after padding: ',x.shape)
@@ -340,7 +339,7 @@ class CNN_small(nn.Module):
         
         # Convolution 2:
         x = self.pad_R(x) # padding right one step  -- comment out for 46x20 images
-        # x = self.pad_B(x) # padding bottom one step
+        x = self.pad_B(x) # padding bottom one step
         
         # plt.imshow(x[1,0,:,:].detach().cpu().numpy().transpose(),origin='lower')
         # plt.show()

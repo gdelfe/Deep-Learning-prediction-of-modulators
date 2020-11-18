@@ -511,8 +511,8 @@ for i in range(filter1):
     fig.colorbar(img1, ax=ax,orientation="horizontal")
     ax1.set_aspect('auto')
     plt.show()
-    fig.savefig('Plots/NW_46_30/CNN_100rand_f_{}_{}_Filter_{}_conv1_{}x{}_filters_size_46_10.png'.format(fmin,fmax,i+1,filter1,filter2),bbox_inches='tight')
-    plt.close(fig)
+    # fig.savefig('Plots/NW_46_30/CNN_100rand_f_{}_{}_Filter_{}_conv1_{}x{}_filters_size_46_10.png'.format(fmin,fmax,i+1,filter1,filter2),bbox_inches='tight')
+    # plt.close(fig)
    
     
 for i in range(filter2):
@@ -523,8 +523,8 @@ for i in range(filter2):
     ax1.set_aspect('auto')
     plt.show()
     
-    fig.savefig('Plots/NW_46_30/CNN_100rand_f_{}_{}_Filter_{}_conv2_{}x{}_filters_size_46_10.png'.format(fmin,fmax,i+1,filter1,filter2),bbox_inches='tight')
-    plt.close(fig)
+    # fig.savefig('Plots/NW_46_30/CNN_100rand_f_{}_{}_Filter_{}_conv2_{}x{}_filters_size_46_10.png'.format(fmin,fmax,i+1,filter1,filter2),bbox_inches='tight')
+    # plt.close(fig)
 
 
 
