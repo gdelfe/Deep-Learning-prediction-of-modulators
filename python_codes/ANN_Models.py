@@ -112,9 +112,11 @@ class Logistic_Regression(nn.Module):
     
     def forward(self,x):
         
+        pdb.set_trace()
         # flatten the input tensor 
         x = x.view(x.shape[0],-1)
         
+        pdb.set_trace()
         # activation functions
         x = self.fc1(x)
         

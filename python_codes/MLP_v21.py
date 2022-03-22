@@ -224,7 +224,7 @@ images.shape[1]
 #%%
 # ### Linear regression
 
-model = ANN.Linear_Regression(tensor_hit_train.shape[1],tensor_hit_train.shape[2],1)
+model = ANN.Logistic_Regression(tensor_hit_train.shape[1],tensor_hit_train.shape[2],1)
 print(model)
 
 
@@ -347,8 +347,8 @@ for epoch in range(1,epochs+1):
         # Clear the gradients
         optimizer.zero_grad()
         
-        logits, conv_x1, conv_x2 = model(images) # forward pass
-        # logits = model(images) # forward pass
+        # logits, conv_x1, conv_x2 = model(images) # forward pass
+        logits = model(images) # forward pass
         loss = criterion(torch.squeeze(logits),labels) # compute the loss
         loss.backward() # backpropagate to compute the gradients
         optimizer.step() # update the weights
@@ -383,8 +383,8 @@ for epoch in range(1,epochs+1):
 
                 
 #                 print('\n\n************ New batch....\n')
-                logits, conv1, conv2 = model(images)
-                # logits = model(images)
+                # logits, conv1, conv2 = model(images)
+                logits = model(images)
                 logits = torch.squeeze(logits)
                 print(logits.shape,labels.shape)
                 valid_loss = criterion(logits,labels)
