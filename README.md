@@ -10,6 +10,10 @@ The stimulation pulse-evoked responses were detected using an optimal signal det
 stimulation-based accumulating log-likelihood ratio (stimAccLLR; [1,2]). We tested 6,910 pairs of
 electrodes, involving 132 brain region pairs (edges), among these, we detected and characterized 110 directed _sender-receiver communication_ involving 21 network edges.
 
+![Screenshot from 2022-03-23 17-56-29](https://user-images.githubusercontent.com/45543977/159802711-1a570637-f60f-4301-ae22-5863ef781adb.png)
+
+
+
 **Modulators**
 
 When recording the receiver’s response to the sender’s stimulation for a given sender-receiver pair we observe that such response is characterized by “hit” and “miss” events, i.e. the receiver either does or does not respond to the sender input, respectively, trial by trial. We hypothesize that such variability in the sender-receiver interaction may be controlled or influenced by a network mechanism involving other brain sites (modulators) responsible for strengthening or weakening the sender-receiver excitability pulse-by-pulse.
